@@ -310,6 +310,107 @@ li {
           <!-- <div class="tab-pane" id="settings" role="tabpanel">..4.</div> -->
         </div>
         
+
+<h3 class=".display-3">Sample Responses Comparison </h3>
+        <p>
+        
+    </p>
+        
+        <ul class="nav nav-tabs" id="exampleTab" role="tablist">
+          <li class="nav-item" style="margin-left: 2px;">
+            <a class="nav-link active" data-toggle="tab" href="#llamagpt3gpt4" role="tab" aria-controls="human" style="background-color:azure;">LLaMA-GPT-4 vs LLaMA-Alpaca</a>
+          </li>
+          <li class="nav-item" style="margin-left: 10px;">
+            <a class="nav-link" data-toggle="tab" href="#llamagpt4gpt4" role="tab" aria-controls="gpt4" style="background-color:azure;">LLaMA-GPT-4 vs GPT-4</a>
+          </li>
+          
+        </ul>
+        
+        <div class="tab-content">
+          <div class="tab-pane active" id="llamagpt3gpt4" role="tabpanel">
+
+            <br>
+
+                    <select id="llamagpt3gpt4-selector" class="form-control">
+                         <option value="" selected>--Select--</option>
+                        
+                    </select>
+
+                    <br>
+
+                            <div class="card">
+                  <h5 class="card-header">Instructions and Inputs</h5>
+                  <div class="card-body">
+                    <p class="card-text" id="llamagpt3gpt4input"></p>
+                  </div>
+                </div>
+              <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <h5 class="card-header">LLaMA-GPT-4</h5>
+                  <div class="card-body">
+                    
+                    <p class="card-text" id="llamagpt3gpt4left"></p>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <h5 class="card-header">LLaMA-GPT-3</h5>
+                  <div class="card-body">
+                    
+                    <p class="card-text" id="llamagpt3gpt4right"></p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+   <div class="tab-pane" id="llamagpt4gpt4" role="tabpanel">
+
+            <br>
+
+                    <select id="llamagpt4gpt4-selector" class="form-control">
+                        <option value="" selected>--Select--</option>
+                    </select>
+
+                    <br>
+
+                            <div class="card">
+                  <h5 class="card-header">Instructions and Inputs</h5>
+                  <div class="card-body">
+                    <p class="card-text" id="llamagpt4gpt4input"></p>
+                  </div>
+                </div>
+              <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <h5 class="card-header">LLaMA-GPT-4</h5>
+                  <div class="card-body">
+                    
+                    <p class="card-text" id="llamagpt4gpt4left"></p>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <h5 class="card-header">GPT-4</h5>
+                  <div class="card-body">
+                    
+                    <p class="card-text" id="llamagpt4gpt4right"></p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+      </div>
+
       
 
     <h3 class=".display-3">Citation</h3>
@@ -339,7 +440,7 @@ li {
     <div class="col-md-12" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
 
       <h3 class=".display-3">The Team </h3>
-	    <a href="https://www.microsoft.com/en-us/research/people/bapeng/" target="_blank">Baolin Peng</a><sup>*</sup>,
+	    <a href="https://scholar.google.com/citations?user=u1CNjgwAAAAJ&hl=en" target="_blank">Baolin Peng</a><sup>*</sup>,
 	    <a href="https://chunyuan.li/" target="_blank">Chunyuan Li</a><sup>*</sup>,
 	    <a href="https://scholar.google.com/citations?user=TS1RoxAAAAAJ&hl=en" target="_blank">Pengcheng He</a><sup>*</sup>,
 	    <a href="https://www.microsoft.com/en-us/research/people/mgalley/" target="_blank">Michel Galley</a>,
@@ -365,6 +466,70 @@ We thank the LLaMA team for giving us access to their models.
     </main>
 
     <script>
+$(document).ready(function() {
+
+        for (var i = 0; i < 100; i++) {
+          $('#llamagpt3gpt4-selector').append($('<option>', {
+            value: i,
+            text: "Example " + i.toString()
+          }));
+        }
+      });
+
+$(document).ready(function() {
+  $('#llamagpt3gpt4-selector').on('change', function() {
+    var contentId = $(this).val();
+    if (contentId) {
+      $.ajax({
+        url: 'https://pfupbk-8000.csb.app/llamag3g4/' + contentId,
+        type: 'GET',
+        success: function(response) {
+          $('#llamagpt3gpt4input').html(response.instruction);
+          $('#llamagpt3gpt4left').html(response.left);
+          $('#llamagpt3gpt4right').html(response.right);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    } else {
+      $('.card-text').text('');
+    }
+  });
+});
+
+
+$(document).ready(function() {
+
+        for (var i = 0; i < 100; i++) {
+          $('#llamagpt4gpt4-selector').append($('<option>', {
+            value: i,
+            text: "Example " + i.toString()
+          }));
+        }
+      });
+
+$(document).ready(function() {
+  $('#llamagpt4gpt4-selector').on('change', function() {
+    var contentId = $(this).val();
+    if (contentId) {
+      $.ajax({
+        url: 'https://pfupbk-8000.csb.app/llamag4g4/' + contentId,
+        type: 'GET',
+        success: function(response) {
+          $('#llamagpt4gpt4input').html(response.instruction);
+          $('#llamagpt4gpt4left').html(response.left);
+          $('#llamagpt4gpt4right').html(response.right);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    } else {
+      $('.card-text').text('');
+    }
+  });
+});
 
 
 </script>
